@@ -7,7 +7,7 @@ spring:
   profiles:
     active: dev
   jackson:
-    time-zone: GMT+8
+    time-zone: GMT+7
   data:
     redis:
       repositories:
@@ -41,11 +41,6 @@ task:
     keep-alive-seconds: 60
     # 队列容量
     queue-capacity: 50
-
-#七牛云
-qiniu:
-  # 文件大小 /M
-  max-size: 15
 
 #邮箱验证码有效时间/秒
 code:
