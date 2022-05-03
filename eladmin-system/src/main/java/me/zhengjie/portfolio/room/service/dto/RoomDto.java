@@ -16,14 +16,38 @@
 package me.zhengjie.portfolio.room.service.dto;
 
 import lombok.Data;
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
-import me.zhengjie.annotation.Query;
 
 /**
 * @website https://el-admin.vip
+* @description /
 * @author smk
 * @date 2022-05-03
 **/
 @Data
-public class MRoomQueryCriteria{
+public class RoomDto implements Serializable {
+
+    private Long id;
+
+    private String type;
+
+    private String size;
+
+    private Integer airConditional;
+
+    private Integer fan;
+
+    private Integer freeParking;
+
+    private String description;
+
+    private Integer bad;
+
+    private Integer freeBreakfast;
+
+    private List<String> image;
+
+    private HashMap<String, String> extraInformation;
 }

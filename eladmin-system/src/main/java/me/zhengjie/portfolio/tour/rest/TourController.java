@@ -16,9 +16,9 @@
 package me.zhengjie.portfolio.tour.rest;
 
 import me.zhengjie.annotation.Log;
-import me.zhengjie.portfolio.tour.domain.MTour;
-import me.zhengjie.portfolio.tour.service.MTourService;
-import me.zhengjie.portfolio.tour.service.dto.MTourQueryCriteria;
+import me.zhengjie.portfolio.tour.domain.Tour;
+import me.zhengjie.portfolio.tour.service.TourService;
+import me.zhengjie.portfolio.tour.service.dto.TourQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,16 +38,16 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "tour管理")
-@RequestMapping("/api/mTour")
-public class MTourController {
+@RequestMapping("/api/tour")
+public class TourController {
 
-    private final MTourService mTourService;
+    private final TourService mTourService;
 
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('mTour:list')")
-    public void exportMTour(HttpServletResponse response, MTourQueryCriteria criteria) throws IOException {
+    public void exportMTour(HttpServletResponse response, TourQueryCriteria criteria) throws IOException {
         mTourService.download(mTourService.queryAll(criteria), response);
     }
 
@@ -55,7 +55,7 @@ public class MTourController {
     @Log("查询tour")
     @ApiOperation("查询tour")
     @PreAuthorize("@el.check('mTour:list')")
-    public ResponseEntity<Object> queryMTour(MTourQueryCriteria criteria, Pageable pageable){
+    public ResponseEntity<Object> queryMTour(TourQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(mTourService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
@@ -63,7 +63,7 @@ public class MTourController {
     @Log("新增tour")
     @ApiOperation("新增tour")
     @PreAuthorize("@el.check('mTour:add')")
-    public ResponseEntity<Object> createMTour(@Validated @RequestBody MTour resources){
+    public ResponseEntity<Object> createMTour(@Validated @RequestBody Tour resources){
         return new ResponseEntity<>(mTourService.create(resources),HttpStatus.CREATED);
     }
 
@@ -71,7 +71,7 @@ public class MTourController {
     @Log("修改tour")
     @ApiOperation("修改tour")
     @PreAuthorize("@el.check('mTour:edit')")
-    public ResponseEntity<Object> updateMTour(@Validated @RequestBody MTour resources){
+    public ResponseEntity<Object> updateMTour(@Validated @RequestBody Tour resources){
         mTourService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -13,11 +13,11 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.portfolio.room.service.mapstruct;
+package me.zhengjie.portfolio.tour.service.mapstruct;
 
 import me.zhengjie.base.BaseMapper;
-import me.zhengjie.portfolio.room.domain.MRoom;
-import me.zhengjie.portfolio.room.service.dto.MRoomDto;
+import me.zhengjie.portfolio.tour.domain.Tour;
+import me.zhengjie.portfolio.tour.service.dto.TourDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -27,6 +27,6 @@ import org.mapstruct.ReportingPolicy;
 * @date 2022-05-03
 **/
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface MRoomMapper extends BaseMapper<MRoomDto, MRoom> {
+public interface TourMapper extends BaseMapper<TourDto, Tour> {
 
 }

@@ -13,20 +13,43 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.portfolio.tour.service.mapstruct;
+package me.zhengjie.portfolio.tour.service.dto;
 
-import me.zhengjie.base.BaseMapper;
-import me.zhengjie.portfolio.tour.domain.MTour;
-import me.zhengjie.portfolio.tour.service.dto.MTourDto;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 /**
 * @website https://el-admin.vip
+* @description /
 * @author smk
 * @date 2022-05-03
 **/
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface MTourMapper extends BaseMapper<MTourDto, MTour> {
+@Data
+public class TourDto implements Serializable {
 
+    private Long id;
+
+    private String name;
+
+    private Date startDate;
+
+    private Integer period;
+
+    private String location;
+
+    private String tourCode;
+
+    private String tourType;
+
+    private String description;
+
+    private HashMap<String, String> extraTourDetail;
+
+    private HashMap<String, String> extraRoomDetail;
+
+    private List<String> images;
 }

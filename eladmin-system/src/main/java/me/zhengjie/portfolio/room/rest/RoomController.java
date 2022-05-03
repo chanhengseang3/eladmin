@@ -16,9 +16,9 @@
 package me.zhengjie.portfolio.room.rest;
 
 import me.zhengjie.annotation.Log;
-import me.zhengjie.portfolio.room.domain.MRoom;
-import me.zhengjie.portfolio.room.service.MRoomService;
-import me.zhengjie.portfolio.room.service.dto.MRoomQueryCriteria;
+import me.zhengjie.portfolio.room.domain.Room;
+import me.zhengjie.portfolio.room.service.RoomService;
+import me.zhengjie.portfolio.room.service.dto.RoomQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,16 +38,16 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "room管理")
-@RequestMapping("/api/mRoom")
-public class MRoomController {
+@RequestMapping("/api/room")
+public class RoomController {
 
-    private final MRoomService mRoomService;
+    private final RoomService mRoomService;
 
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('mRoom:list')")
-    public void exportMRoom(HttpServletResponse response, MRoomQueryCriteria criteria) throws IOException {
+    public void exportMRoom(HttpServletResponse response, RoomQueryCriteria criteria) throws IOException {
         mRoomService.download(mRoomService.queryAll(criteria), response);
     }
 
@@ -55,7 +55,7 @@ public class MRoomController {
     @Log("查询room")
     @ApiOperation("查询room")
     @PreAuthorize("@el.check('mRoom:list')")
-    public ResponseEntity<Object> queryMRoom(MRoomQueryCriteria criteria, Pageable pageable){
+    public ResponseEntity<Object> queryMRoom(RoomQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(mRoomService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
@@ -63,7 +63,7 @@ public class MRoomController {
     @Log("新增room")
     @ApiOperation("新增room")
     @PreAuthorize("@el.check('mRoom:add')")
-    public ResponseEntity<Object> createMRoom(@Validated @RequestBody MRoom resources){
+    public ResponseEntity<Object> createMRoom(@Validated @RequestBody Room resources){
         return new ResponseEntity<>(mRoomService.create(resources),HttpStatus.CREATED);
     }
 
@@ -71,7 +71,7 @@ public class MRoomController {
     @Log("修改room")
     @ApiOperation("修改room")
     @PreAuthorize("@el.check('mRoom:edit')")
-    public ResponseEntity<Object> updateMRoom(@Validated @RequestBody MRoom resources){
+    public ResponseEntity<Object> updateMRoom(@Validated @RequestBody Room resources){
         mRoomService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

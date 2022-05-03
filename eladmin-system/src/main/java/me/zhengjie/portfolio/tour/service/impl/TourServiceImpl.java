@@ -15,15 +15,15 @@
 */
 package me.zhengjie.portfolio.tour.service.impl;
 
-import me.zhengjie.portfolio.tour.domain.MTour;
-import me.zhengjie.portfolio.tour.repository.MTourRepository;
-import me.zhengjie.portfolio.tour.service.MTourService;
-import me.zhengjie.portfolio.tour.service.dto.MTourDto;
-import me.zhengjie.portfolio.tour.service.dto.MTourQueryCriteria;
+import me.zhengjie.portfolio.tour.domain.Tour;
+import me.zhengjie.portfolio.tour.repository.TourRepository;
+import me.zhengjie.portfolio.tour.service.TourService;
+import me.zhengjie.portfolio.tour.service.dto.TourDto;
+import me.zhengjie.portfolio.tour.service.dto.TourQueryCriteria;
 import me.zhengjie.utils.ValidationUtil;
 import me.zhengjie.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
-import me.zhengjie.portfolio.tour.service.mapstruct.MTourMapper;
+import me.zhengjie.portfolio.tour.service.mapstruct.TourMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
@@ -45,56 +45,56 @@ import java.util.LinkedHashMap;
 **/
 @Service
 @RequiredArgsConstructor
-public class MTourServiceImpl implements MTourService {
+public class TourServiceImpl implements TourService {
 
-    private final MTourRepository mTourRepository;
-    private final MTourMapper mTourMapper;
+    private final TourRepository tourRepository;
+    private final TourMapper tourMapper;
 
     @Override
-    public Map<String,Object> queryAll(MTourQueryCriteria criteria, Pageable pageable){
-        Page<MTour> page = mTourRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder), pageable);
-        return PageUtil.toPage(page.map(mTourMapper::toDto));
+    public Map<String,Object> queryAll(TourQueryCriteria criteria, Pageable pageable){
+        Page<Tour> page = tourRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder), pageable);
+        return PageUtil.toPage(page.map(tourMapper::toDto));
     }
 
     @Override
-    public List<MTourDto> queryAll(MTourQueryCriteria criteria){
-        return mTourMapper.toDto(mTourRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
+    public List<TourDto> queryAll(TourQueryCriteria criteria){
+        return tourMapper.toDto(tourRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
     }
 
     @Override
     @Transactional
-    public MTourDto findById(Long id) {
-        MTour mTour = mTourRepository.findById(id).orElseGet(MTour::new);
-        ValidationUtil.isNull(mTour.getId(),"MTour","id",id);
-        return mTourMapper.toDto(mTour);
+    public TourDto findById(Long id) {
+        Tour tour = tourRepository.findById(id).orElseGet(Tour::new);
+        ValidationUtil.isNull(tour.getId(),"MTour","id",id);
+        return tourMapper.toDto(tour);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public MTourDto create(MTour resources) {
-        return mTourMapper.toDto(mTourRepository.save(resources));
+    public TourDto create(Tour resources) {
+        return tourMapper.toDto(tourRepository.save(resources));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void update(MTour resources) {
-        MTour mTour = mTourRepository.findById(resources.getId()).orElseGet(MTour::new);
-        ValidationUtil.isNull( mTour.getId(),"MTour","id",resources.getId());
-        mTour.copy(resources);
-        mTourRepository.save(mTour);
+    public void update(Tour resources) {
+        Tour tour = tourRepository.findById(resources.getId()).orElseGet(Tour::new);
+        ValidationUtil.isNull( tour.getId(),"MTour","id",resources.getId());
+        tour.copy(resources);
+        tourRepository.save(tour);
     }
 
     @Override
     public void deleteAll(Long[] ids) {
         for (Long id : ids) {
-            mTourRepository.deleteById(id);
+            tourRepository.deleteById(id);
         }
     }
 
     @Override
-    public void download(List<MTourDto> all, HttpServletResponse response) throws IOException {
+    public void download(List<TourDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
-        for (MTourDto mTour : all) {
+        for (TourDto mTour : all) {
             Map<String,Object> map = new LinkedHashMap<>();
             map.put(" name",  mTour.getName());
             map.put(" startDate",  mTour.getStartDate());

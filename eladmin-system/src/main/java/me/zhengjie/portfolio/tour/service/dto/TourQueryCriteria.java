@@ -13,11 +13,9 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package room.service.dto;
+package me.zhengjie.portfolio.tour.service.dto;
 
 import lombok.Data;
-import java.util.List;
-import me.zhengjie.annotation.Query;
 
 /**
 * @website https://el-admin.vip
@@ -25,5 +23,5 @@ import me.zhengjie.annotation.Query;
 * @date 2022-05-03
 **/
 @Data
-public class MRoomQueryCriteria{
+public class TourQueryCriteria {
 }

@@ -13,7 +13,7 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.portfolio.room.domain;
+package me.zhengjie.portfolio.tour.domain;
 
 import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
@@ -25,9 +25,9 @@ import me.zhengjie.converter.StringMapConverter;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
 * @website https://el-admin.vip
@@ -37,8 +37,8 @@ import java.util.Map;
 **/
 @Entity
 @Data
-@Table(name="m_room")
-public class MRoom implements Serializable {
+@Table(name="tour")
+public class Tour implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,52 +46,56 @@ public class MRoom implements Serializable {
     @ApiModelProperty(value = "id")
     private Long id;
 
-    @Column(name = "type")
-    @ApiModelProperty(value = "type")
-    private String type;
+    @Column(name = "name",nullable = false)
+    @NotBlank
+    @ApiModelProperty(value = "name")
+    private String name;
 
-    @Column(name = "size")
-    @ApiModelProperty(value = "size")
-    private String size;
-
-    @Column(name = "air_conditional",nullable = false)
+    @Column(name = "start_date",nullable = false)
     @NotNull
-    @ApiModelProperty(value = "airConditional")
-    private Integer airConditional;
+    @ApiModelProperty(value = "startDate")
+    private Date startDate = new Date();
 
-    @Column(name = "fan",nullable = false)
+    @Column(name = "period",nullable = false)
     @NotNull
-    @ApiModelProperty(value = "fan")
-    private Integer fan;
+    @ApiModelProperty(value = "period")
+    private Integer period;
 
-    @Column(name = "free_parking")
-    @ApiModelProperty(value = "freeParking")
-    private Integer freeParking;
+    @Column(name = "location",nullable = false)
+    @NotBlank
+    @ApiModelProperty(value = "location")
+    private String location;
+
+    @Column(name = "tour_code",nullable = false)
+    @NotBlank
+    @ApiModelProperty(value = "tourCode")
+    private String tourCode;
+
+    @Column(name = "tour_type",nullable = false)
+    @NotBlank
+    @ApiModelProperty(value = "tourType")
+    private String tourType;
 
     @Column(name = "description")
     @ApiModelProperty(value = "description")
     private String description;
 
-    @Column(name = "bad",nullable = false)
-    @NotNull
-    @ApiModelProperty(value = "bad")
-    private Integer bad;
-
-    @Column(name = "free_breakfast")
-    @ApiModelProperty(value = "freeBreakfast")
-    private Integer freeBreakfast;
-
-    @Column(name = "image",nullable = false)
-    @ApiModelProperty(value = "image")
-    @Convert(converter = StringListConverter.class)
-    private List<String> image;
-
-    @Column(name = "extra_information")
-    @ApiModelProperty(value = "extraInformation")
+    @Column(name = "extra_tour_detail",nullable = false)
+    @ApiModelProperty(value = "extraTourDetail")
     @Convert(converter = StringMapConverter.class)
-    private HashMap<String, String> extraInformation;
+    private HashMap<String, String> extraTourDetail;
 
-    public void copy(MRoom source){
+    @Column(name = "extra_room_detail",nullable = false)
+    @ApiModelProperty(value = "extraRoomDetail")
+    @Convert(converter = StringMapConverter.class)
+    private HashMap<String, String> extraRoomDetail;
+
+    @Column(name = "images",nullable = false)
+    @ApiModelProperty(value = "images")
+    @Convert(converter = StringListConverter.class)
+    private List<String> images;
+
+    public void copy(Tour source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

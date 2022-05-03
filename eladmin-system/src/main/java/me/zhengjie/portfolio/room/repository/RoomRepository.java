@@ -13,9 +13,9 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.portfolio.tour.repository;
+package me.zhengjie.portfolio.room.repository;
 
-import me.zhengjie.portfolio.tour.domain.MTour;
+import me.zhengjie.portfolio.room.domain.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
@@ -24,5 +24,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 * @author smk
 * @date 2022-05-03
 **/
-public interface MTourRepository extends JpaRepository<MTour, Long>, JpaSpecificationExecutor<MTour> {
+public interface RoomRepository extends JpaRepository<Room, Long>, JpaSpecificationExecutor<Room> {
 }

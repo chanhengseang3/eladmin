@@ -13,17 +13,17 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package room.service.impl;
+package me.zhengjie.portfolio.room.service.impl;
 
-import room.domain.MRoom;
+import me.zhengjie.portfolio.room.domain.Room;
 import me.zhengjie.utils.ValidationUtil;
 import me.zhengjie.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
-import room.repository.MRoomRepository;
-import room.service.MRoomService;
-import room.service.dto.MRoomDto;
-import room.service.dto.MRoomQueryCriteria;
-import room.service.mapstruct.MRoomMapper;
+import me.zhengjie.portfolio.room.repository.RoomRepository;
+import me.zhengjie.portfolio.room.service.RoomService;
+import me.zhengjie.portfolio.room.service.dto.RoomDto;
+import me.zhengjie.portfolio.room.service.dto.RoomQueryCriteria;
+import me.zhengjie.portfolio.room.service.mapstruct.RoomMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
@@ -45,56 +45,56 @@ import java.util.LinkedHashMap;
 **/
 @Service
 @RequiredArgsConstructor
-public class MRoomServiceImpl implements MRoomService {
+public class RoomServiceImpl implements RoomService {
 
-    private final MRoomRepository mRoomRepository;
-    private final MRoomMapper mRoomMapper;
+    private final RoomRepository roomRepository;
+    private final RoomMapper roomMapper;
 
     @Override
-    public Map<String,Object> queryAll(MRoomQueryCriteria criteria, Pageable pageable){
-        Page<MRoom> page = mRoomRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
-        return PageUtil.toPage(page.map(mRoomMapper::toDto));
+    public Map<String,Object> queryAll(RoomQueryCriteria criteria, Pageable pageable){
+        Page<Room> page = roomRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
+        return PageUtil.toPage(page.map(roomMapper::toDto));
     }
 
     @Override
-    public List<MRoomDto> queryAll(MRoomQueryCriteria criteria){
-        return mRoomMapper.toDto(mRoomRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
+    public List<RoomDto> queryAll(RoomQueryCriteria criteria){
+        return roomMapper.toDto(roomRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
     }
 
     @Override
     @Transactional
-    public MRoomDto findById(Long id) {
-        MRoom mRoom = mRoomRepository.findById(id).orElseGet(MRoom::new);
-        ValidationUtil.isNull(mRoom.getId(),"MRoom","id",id);
-        return mRoomMapper.toDto(mRoom);
+    public RoomDto findById(Long id) {
+        Room room = roomRepository.findById(id).orElseGet(Room::new);
+        ValidationUtil.isNull(room.getId(),"MRoom","id",id);
+        return roomMapper.toDto(room);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public MRoomDto create(MRoom resources) {
-        return mRoomMapper.toDto(mRoomRepository.save(resources));
+    public RoomDto create(Room resources) {
+        return roomMapper.toDto(roomRepository.save(resources));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void update(MRoom resources) {
-        MRoom mRoom = mRoomRepository.findById(resources.getId()).orElseGet(MRoom::new);
-        ValidationUtil.isNull( mRoom.getId(),"MRoom","id",resources.getId());
-        mRoom.copy(resources);
-        mRoomRepository.save(mRoom);
+    public void update(Room resources) {
+        Room room = roomRepository.findById(resources.getId()).orElseGet(Room::new);
+        ValidationUtil.isNull( room.getId(),"MRoom","id",resources.getId());
+        room.copy(resources);
+        roomRepository.save(room);
     }
 
     @Override
     public void deleteAll(Long[] ids) {
         for (Long id : ids) {
-            mRoomRepository.deleteById(id);
+            roomRepository.deleteById(id);
         }
     }
 
     @Override
-    public void download(List<MRoomDto> all, HttpServletResponse response) throws IOException {
+    public void download(List<RoomDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
-        for (MRoomDto mRoom : all) {
+        for (RoomDto mRoom : all) {
             Map<String,Object> map = new LinkedHashMap<>();
             map.put(" type",  mRoom.getType());
             map.put(" size",  mRoom.getSize());

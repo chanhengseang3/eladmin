@@ -13,43 +13,16 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.portfolio.tour.service.dto;
+package me.zhengjie.portfolio.tour.repository;
 
-import lombok.Data;
-import java.sql.Timestamp;
-import java.io.Serializable;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import me.zhengjie.portfolio.tour.domain.Tour;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 /**
 * @website https://el-admin.vip
-* @description /
 * @author smk
 * @date 2022-05-03
 **/
-@Data
-public class MTourDto implements Serializable {
-
-    private Long id;
-
-    private String name;
-
-    private Date startDate;
-
-    private Integer period;
-
-    private String location;
-
-    private String tourCode;
-
-    private String tourType;
-
-    private String description;
-
-    private HashMap<String, String> extraTourDetail;
-
-    private HashMap<String, String> extraRoomDetail;
-
-    private List<String> images;
+public interface TourRepository extends JpaRepository<Tour, Long>, JpaSpecificationExecutor<Tour> {
 }

@@ -13,41 +13,20 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.portfolio.room.service.dto;
+package me.zhengjie.portfolio.room.service.mapstruct;
 
-import lombok.Data;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
+import me.zhengjie.base.BaseMapper;
+import me.zhengjie.portfolio.room.domain.Room;
+import me.zhengjie.portfolio.room.service.dto.RoomDto;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
 /**
 * @website https://el-admin.vip
-* @description /
 * @author smk
 * @date 2022-05-03
 **/
-@Data
-public class MRoomDto implements Serializable {
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface RoomMapper extends BaseMapper<RoomDto, Room> {
 
-    private Long id;
-
-    private String type;
-
-    private String size;
-
-    private Integer airConditional;
-
-    private Integer fan;
-
-    private Integer freeParking;
-
-    private String description;
-
-    private Integer bad;
-
-    private Integer freeBreakfast;
-
-    private List<String> image;
-
-    private HashMap<String, String> extraInformation;
 }
