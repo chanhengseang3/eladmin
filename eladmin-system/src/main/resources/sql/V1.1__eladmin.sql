@@ -816,6 +816,22 @@ CREATE TABLE `tool_qiniu_content` (
   UNIQUE KEY `uniq_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='七牛云文件存储';
 
+
+CREATE TABLE m_tour (
+  id bigint NOT NULL AUTO_INCREMENT Primary key,
+  name varchar(100) NOT NULL,
+  start_date date NOT NULL,
+  period int NOT NULL,
+  location varchar(100) NOT NULL,
+  tour_code varchar(100) NOT NULL,
+  tour_type varchar(20) NOT NULL,
+  description text,
+  extra_tour_detail text NOT NULL,
+  extra_room_detail text NOT NULL,
+  images text NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 -- ----------------------------
 -- Records of tool_qiniu_content
 -- ----------------------------
